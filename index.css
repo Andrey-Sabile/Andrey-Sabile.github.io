@@ -12,4 +12,8 @@
     animation-delay: .3s;
     animation-fill-mode: both;
 }
-
+.profile-pic{
+    width: 150px;
+    margin-bottom: 25px;
+    border-radius: 100%;
+}
