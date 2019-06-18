@@ -1,9 +1,15 @@
-body{
+.home-body{
     background-color: #fbfbfb
 }
-header{
+.home-header{
     display: block;
     margin: 0px auto 0px auto;
     text-align: center;
     position: relative;
 }
+.animated{
+    animation: fade-in-down .6s;
+    animation-delay: .3s;
+    animation-fill-mode: both;
+}
+
