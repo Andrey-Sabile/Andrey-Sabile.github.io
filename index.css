@@ -49,11 +49,8 @@ a.fa{
     color: black;
 }
 
-.project-cards{
-    display: block;
-    margin: 100px auto 0px auto;
-    text-align: center;
-    position: relative;
+.container-cards{
+    margin: 100px;
     animation: fade-in-down .6s;
     animation-delay: 0.3s;
     animation-fill-mode: both;
