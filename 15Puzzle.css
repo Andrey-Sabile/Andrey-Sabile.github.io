@@ -1,0 +1,40 @@
+body{
+    background-color: #fbfbfb;
+    animation: fade-in-down .6s;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
+    margin: 100px auto 0px auto;
+}
+
+@keyframes fade-in-down{
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+        }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        }
+}
+
+.puzzle-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 70%;
+    height: 70%;
+    min-width: 300px;
+    max-width: 400px;
+    min-height: 300px;
+    max-height: 400px;
+    margin: 0 auto;
+
+}
+
+.boxes{
+    flex: 1 0 21%;
+    height: 80px;
+    width: 80px;
+    margin: 5px;
+    background-color: aqua;
+}

@@ -21,7 +21,6 @@
     animation-fill-mode: both;
 }
 .profile-photo{
-    display: inline-block;
     position: relative;
     width: 150px;
     overflow: hidden;
