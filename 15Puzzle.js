@@ -8,10 +8,10 @@ window.onload = function()
 {
     var gridArea = document.getElementByClassName('puzzle-container');
     grid = gridArea.getElementsByTagName('div');
+    var i;
     for(i = 0; i<grid.length; i++)
     {
-        var num = i;
-        grid[num].innerHTML = num;
+        grid.getElementByClassName("boxes").innerHTML = i;
     }
 }
 function setUpGoal(target)
