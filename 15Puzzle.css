@@ -33,6 +33,7 @@ body{
 
 .boxes{
     text-align: center;
+    font-size: 50%;
     flex: 1 0 21%;
     height: 80px;
     width: 80px;
