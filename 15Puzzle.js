@@ -1,44 +1,166 @@
-var fifteenPuzzle = {
-    grid,
-    xspace,
-    yspace,
-    col:4,
-    row:4,
-    goal :[[1, 5, 9,13], [2, 6,10,14], [3, 7,11, 15], [4, 8,12,0]],
+var moves = 0;
+var table;
+var rows;
+var columns;
+var textMoves;
+var grid;
+
+function start() // Acts like a constructor
+{ 
+    var button = document.getElementById("newGame");
+    button.addEventListener("click", startNewGame, false);
+    textMoves = document.getElementById("moves")
+    table = document.getElementById("table");
+    rows = 4;
+    columns = 4;
+    startNewGame();
+}
+
+function startNewGame()
+{
+    var arrayofNumbers = new Array();
+    var arrayHasNumberBeenUsed;
+    var randomNumber = 0;
+    var count = 0;
+    moves = 0;
+    rows = document.getElementById("rows").value;
+    columns = document.getElementById("columns").value;
+    textMoves.innerHTML = moves;
     
-    FifteenPuzzle: function(){
-        this.grid = new Array(rows);
-        for(var i = 0; i<this.col; i++){
-            this.grid[i] = goal.slice(0,col+1);
+    //Creates the board size depending on number of rows and columns 
+    grid = new Array(rows)
+    for (var i = 0; i<rows; i++) grid[i] = new Array(columns);
+
+    //Set temporary array for allocating unique numbers
+    arrayHasNumberBeenUsed = new Array(rows * columns);
+    for (var i =0; i < rows * columns; i++) 
+    {
+        arrayHasNumberBeenUsed[i] = 0; //Initialize all values to zero
+    }
+
+    //Assign random numbers to the board
+    for (var i = 0; i < rows * columns; i++)
+    {
+        randomNumber = Math.floor(Math.random()*rows *columns);
+        if (arrayHasNumberBeenUsed[randomNumber] == 0) //If random number is unique, add to the board.
+        {
+            arrayHasNumberBeenUsed[randomNumber] = 1;
+            arrayofNumbers.push(randomNumber);
         }
-        this.xspace = this.row -1;
-        this.yspace = this.col - 1;
-        for(var k = 0; k<10000; K++){
-            moveTile((Math.random() * this.row), (Math.random() * this.col))
-        };
-    },
+        else 
+        {
+            i--;
+        }
+    }
 
-    legalClick: function(x,y){
-        return Math.abs(x - this.xspace) + Math.abs(y - this.yspace) === 1;
-    },
+    //Assign numbers to the GAME board
+    count = 0;
+    for (var i = 0; i<rows; i++)
+    {
+        for(var j = 0; j<columns; j++)
+        {
+            grid[i][j] = arrayofNumbers[count];
+            count++;
+        }
+    }
+    showTable();
+}
 
-    finished: function(){
-        for(var i = 0; i < this.row; i++){
-            for(var k = 0; k<this.col; k++){
-                if(this.grid[i][k]!= this.goal[i][k]){
+function showTable(){
+    var num ="";
+    for(var i = 0; i<rows; i++){
+        for(var j =0; j<col; j++){
+            if(puzzle[i][j] !=0){
+                num += "<div class=\"box\" onclick = \"moveTIle(" + i + ", " + j + ")\">" + puzzle[j][i] +"</div>";
+            }
+            else num += "<div class = \"blank\"> </div>";
+        }
+    }
+    table.innerHTML = num;
+}
+
+function moveTile(tableRow, tableColumn)
+{
+    if(legalClick(tableRow, tableColumn, "up") ||
+       legalClick(tableRow, tableColumn, "down") ||
+       legalClick(tableRow, tableColumn, "left") ||
+       legalClick(tableRow, tableColumn, "right"))
+    {
+        increaseMoveCount();
+    }
+    else
+    {
+    }
+    if(checkIfWinner())
+    {
+        alert("CONGRATULATIONS, the puzzle is solved in " + moves + " moves.");
+        startNewGame();
+    }
+}
+
+function legalClick(rowCoord, columnCoord, direction)
+{
+    rowOffset = 0;
+    columnOffset = 0;
+    if (direction == "up")
+    {
+        rowOffset = -1;
+    }
+    else if (direction == "down") 
+    {
+        rowOffset = 1;
+    }
+    else if  (direction == "left") 
+    {
+        columnOffset = -1;
+    }
+    else if  (direction == "right") 
+    {
+        columnOffset = 1;
+    }
+
+    //Checks if tile can be moved to the target spot. 
+    //And if it can , move and return true
+    if (rowCoord + rowOffset >= 0 && columnCoord + columnOffset >=0 && 
+        rowCoord + rowOffset < rows && columnCoord + columnOffset < columns)
+        {
+            if(grid[rowCoord + rowOffset][columnCoord + columnOffset] == 0)
+            {
+                grid[rowCoord + rowOffset][columnCoord + columnOffset] = grid[rowCoord][columnCoord];
+                grid[rowCoord][columnCoord] = 0;
+                showTable();
+                return true;
+            }
+        }
+        return false;
+}
+
+function checkIfWinner()
+{
+    var count = 1;
+    for (var i = 0; i < rows; i++)
+    {
+        for (var j = 0; j < columns; j++)
+        {
+            if(grid[i][j] != count)
+            {
+                if( !(count === rows * columns && grid[i][j] === 0)) 
+                {
                     return false;
                 }
             }
-            return true;
-        }
-    },
-
-    moveTile: function(x,y){
-        if (0 <= x && x < size && 0 <= y && y < size && legalClick(x, y)){
-            this.grid[this.xspace][this.yspace] = this.grid[x][y];
-            this.grid[x][y] = 0;
-            this.xspace = x;
-            this.yspace = y;
+            count++;
         }
     }
-};
+    return true;
+}
+
+function increaseMoveCount()
+{
+    moves ++;
+    if(textMoves) 
+    {
+        textMoves.innerHTML = moves;
+    }
+}
+window.addEventListener( "load", start, false );

@@ -3,40 +3,36 @@ body{
     animation: fade-in-down .6s;
     animation-delay: 0.3s;
     animation-fill-mode: both;
-    margin: 100px auto 0px auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    align-items: center;
 }
 
-@keyframes fade-in-down{
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-        }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        }
+#grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 1vmin;
+    grid-row-gap: 1vmin;
+    
 }
 
-.puzzle-container{
+.box{
+    border: 2vmin solid;
+    width: 18vmin;
+    height: 18vmin;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    width: 70%;
-    height: 70%;
-    min-width: 300px;
-    max-width: 400px;
-    min-height: 300px;
-    max-height: 400px;
-    margin: 0 auto;
-
+    align-items: center;
+    font-size: 8vmin;
 }
 
-.boxes{
-    text-align: center;
-    font-size: 50%;
-    flex: 1 0 21%;
-    height: 80px;
-    width: 80px;
-    margin: 5px;
-    background-color: aqua;
+.blank{
+    width: 18vmin;
+    height: 18vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8vmin;
 }

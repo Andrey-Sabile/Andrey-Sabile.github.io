@@ -5,7 +5,7 @@ var columns;
 var textMoves;
 var grid;
 
-function start() //Constructor
+function start() // Acts like a constructor
 { 
     var button = document.getElementById("newGame");
     button.addEventListener("click", startNewGame, false);

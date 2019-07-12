@@ -4,36 +4,13 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="15Puzzle.css">
+        <script src="15Puzzle.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script>
-            function displayNums(){
-                var i;
-                for(i = 0; i<15; i++){
-                    document.getElementById("boxes").innerHTML = i;
-                }
-            }
-            window.onload = displayNums();
-        </script>
         <title>15 Puzzle | Andrey Sabile</title>
     </head>
 
     <body>
-        <div class="puzzle-container">
-            <div id="boxes" class="boxes"></div>
-            <p class="boxes">1</p>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-            <div class="boxes"></div>
-        </div>
+        <span id="grid">
+            <div class="box">1</div>
+        </span>
     </body>
