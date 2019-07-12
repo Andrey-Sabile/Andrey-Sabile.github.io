@@ -1,166 +1,67 @@
-var moves = 0;
-var table;
+var fifteenPuzzle; //Inner representation of the game
+var xspace;
+var yspace;
+var columns
 var rows;
-var columns;
-var textMoves;
-var grid;
+var grid; //What the user sees
 
-function start() // Acts like a constructor
-{ 
-    var button = document.getElementById("newGame");
-    button.addEventListener("click", startNewGame, false);
-    textMoves = document.getElementById("moves")
-    table = document.getElementById("table");
-    rows = 4;
+window.onload = function(){
     columns = 4;
-    startNewGame();
-}
-
-function startNewGame()
-{
-    var arrayofNumbers = new Array();
-    var arrayHasNumberBeenUsed;
-    var randomNumber = 0;
-    var count = 0;
-    moves = 0;
-    rows = document.getElementById("rows").value;
-    columns = document.getElementById("columns").value;
-    textMoves.innerHTML = moves;
-    
-    //Creates the board size depending on number of rows and columns 
-    grid = new Array(rows)
-    for (var i = 0; i<rows; i++) grid[i] = new Array(columns);
-
-    //Set temporary array for allocating unique numbers
-    arrayHasNumberBeenUsed = new Array(rows * columns);
-    for (var i =0; i < rows * columns; i++) 
-    {
-        arrayHasNumberBeenUsed[i] = 0; //Initialize all values to zero
-    }
-
-    //Assign random numbers to the board
-    for (var i = 0; i < rows * columns; i++)
-    {
-        randomNumber = Math.floor(Math.random()*rows *columns);
-        if (arrayHasNumberBeenUsed[randomNumber] == 0) //If random number is unique, add to the board.
-        {
-            arrayHasNumberBeenUsed[randomNumber] = 1;
-            arrayofNumbers.push(randomNumber);
-        }
-        else 
-        {
+    rows = 4;
+    grid = document.getElementById("grid");
+    fifteenPuzzle = new(Array);
+    for (var i =0; i<rows; i++){ fifteenPuzzle[i] = new Array(columns)};
+    var randArray =[];
+    for (var i =0; i<rows*columns; i++){
+        var randNum = randomNum(0,rows*columns); //Generates a random number between 0 (inclusive) to rows*columns (exclusive)
+        if(randArray.includes(randNum)){
             i--;
         }
+        else {randArray.push(randNum)};
     }
-
-    //Assign numbers to the GAME board
-    count = 0;
-    for (var i = 0; i<rows; i++)
-    {
-        for(var j = 0; j<columns; j++)
-        {
-            grid[i][j] = arrayofNumbers[count];
+    var count = 0;
+    for(var i =0; i<rows; i++){
+        for(var j=0; j<columns; j++){
+            fifteenPuzzle[i][j] = randArray[count];
+            if(randArray[count] ==0){
+                xspace =i;
+                yspace = j;
+            }
             count++;
         }
     }
-    showTable();
+    drawGrid();
 }
 
-function showTable(){
+function drawGrid(){
     var num ="";
     for(var i = 0; i<rows; i++){
-        for(var j =0; j<col; j++){
-            if(puzzle[i][j] !=0){
-                num += "<div class=\"box\" onclick = \"moveTIle(" + i + ", " + j + ")\">" + puzzle[j][i] +"</div>";
+        for(var j =0; j<columns; j++){
+            if(fifteenPuzzle[i][j] !=0){
+                num += "<div class=\"box\" onclick = \"moveTile(" + i + ", " + j + ")\">" + fifteenPuzzle[i][j] +"</div>";
             }
             else num += "<div class = \"blank\"> </div>";
         }
     }
-    table.innerHTML = num;
+    grid.innerHTML = num;
 }
 
-function moveTile(tableRow, tableColumn)
-{
-    if(legalClick(tableRow, tableColumn, "up") ||
-       legalClick(tableRow, tableColumn, "down") ||
-       legalClick(tableRow, tableColumn, "left") ||
-       legalClick(tableRow, tableColumn, "right"))
-    {
-        increaseMoveCount();
-    }
-    else
-    {
-    }
-    if(checkIfWinner())
-    {
-        alert("CONGRATULATIONS, the puzzle is solved in " + moves + " moves.");
-        startNewGame();
+function moveTile(x,y){
+    if(legalClick(x,y)){
+        fifteenPuzzle[xspace][yspace] = fifteenPuzzle[x][y];
+        fifteenPuzzle[x][y] = 0;
+        xspace = x;
+        yspace = y;
+        drawGrid();
     }
 }
 
-function legalClick(rowCoord, columnCoord, direction)
-{
-    rowOffset = 0;
-    columnOffset = 0;
-    if (direction == "up")
-    {
-        rowOffset = -1;
-    }
-    else if (direction == "down") 
-    {
-        rowOffset = 1;
-    }
-    else if  (direction == "left") 
-    {
-        columnOffset = -1;
-    }
-    else if  (direction == "right") 
-    {
-        columnOffset = 1;
-    }
-
-    //Checks if tile can be moved to the target spot. 
-    //And if it can , move and return true
-    if (rowCoord + rowOffset >= 0 && columnCoord + columnOffset >=0 && 
-        rowCoord + rowOffset < rows && columnCoord + columnOffset < columns)
-        {
-            if(grid[rowCoord + rowOffset][columnCoord + columnOffset] == 0)
-            {
-                grid[rowCoord + rowOffset][columnCoord + columnOffset] = grid[rowCoord][columnCoord];
-                grid[rowCoord][columnCoord] = 0;
-                showTable();
-                return true;
-            }
-        }
-        return false;
+function legalClick(x,y){
+    return Math.abs(x-xspace) + Math.abs(y-yspace) == 1;
 }
 
-function checkIfWinner()
-{
-    var count = 1;
-    for (var i = 0; i < rows; i++)
-    {
-        for (var j = 0; j < columns; j++)
-        {
-            if(grid[i][j] != count)
-            {
-                if( !(count === rows * columns && grid[i][j] === 0)) 
-                {
-                    return false;
-                }
-            }
-            count++;
-        }
-    }
-    return true;
+function randomNum(min,max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max-min)) + min;
 }
-
-function increaseMoveCount()
-{
-    moves ++;
-    if(textMoves) 
-    {
-        textMoves.innerHTML = moves;
-    }
-}
-window.addEventListener( "load", start, false );
