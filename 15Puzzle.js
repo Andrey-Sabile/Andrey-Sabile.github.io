@@ -4,10 +4,13 @@ var yspace;
 var columns
 var rows;
 var grid; //What the user sees
+var moves;
 
-window.onload = function(){
+function start(){
     columns = 4;
     rows = 4;
+    moves = 0;
+    document.getElementById("moves").innerHTML = moves;
     grid = document.getElementById("grid");
     fifteenPuzzle = new(Array);
     for (var i =0; i<rows; i++){ fifteenPuzzle[i] = new Array(columns)};
@@ -53,6 +56,8 @@ function moveTile(x,y){
         xspace = x;
         yspace = y;
         drawGrid();
+        moves++;
+        document.getElementById("moves").innerHTML = moves;
     }
 }
 
@@ -65,3 +70,5 @@ function randomNum(min,max){
     max = Math.floor(max);
     return Math.floor(Math.random() * (max-min)) + min;
 }
+
+window.addEventListener("load", start, false);
