@@ -20,19 +20,20 @@ body{
 
 .box{
     border: 2vmin solid;
-    width: 18vmin;
-    height: 18vmin;
+    width: 16vmin;
+    height: 16vmin;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 8vmin;
+    font-size: 7vmin;
+    cursor: pointer;
 }
 
 .blank{
-    width: 18vmin;
-    height: 18vmin;
+    width: 16vmin;
+    height: 16vmin;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 8vmin;
+    font-size: 7vmin;
 }
