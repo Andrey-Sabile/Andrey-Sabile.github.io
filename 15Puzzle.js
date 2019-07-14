@@ -47,6 +47,10 @@ function drawGrid(){
         }
     }
     grid.innerHTML = num;
+    if(isFinished()){
+        window.alert("Congratulations, you finished the game!!");
+        start();
+    }
 }
 
 function moveTile(x,y){
@@ -55,9 +59,9 @@ function moveTile(x,y){
         fifteenPuzzle[x][y] = 0;
         xspace = x;
         yspace = y;
-        drawGrid();
         moves++;
         document.getElementById("moves").innerHTML = moves;
+        drawGrid();
     }
 }
 
@@ -71,4 +75,13 @@ function randomNum(min,max){
     return Math.floor(Math.random() * (max-min)) + min;
 }
 
+function isFinished(){
+    goal = [[1, 5, 9,13], [2, 6,10,14], [3, 7,11, 15], [4, 8,12,0]]
+    for(var i = 0; i<rows; i++){
+        for(var j = 0; j<columns; j++){
+            if (fifteenPuzzle[i][j] != goal[i][j]) return false;
+        }
+    }
+    return true;
+}
 window.addEventListener("load", start, false);
