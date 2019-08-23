@@ -1,0 +1,7 @@
+Hi! my name is Andrey a Finance and Computer Science student at UWA. 
+I am the President of the UWA Filipino-Australian Society where i also previously served as Treasurer. Outside my studies i enjoy spending time with my little brother, playing league of legends and Basketball.
+
+I worked at a Not-for-profit community legal centre as a research intern tasked with finding the best method in digitizing the organization's business systems.
+
+Currently, i am in the process of narrowing down my choices of which subset of Computer Science/Software engineering i want to work in. I have a keen interest in data visualization using the D3 library for Javascript. I also find UI web design to be engaging and fun. 
+ 

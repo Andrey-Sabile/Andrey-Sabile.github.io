@@ -60,3 +60,8 @@ a.fa{
     height: 20vh;
     object-fit: cover;
 }
+
+main-paragraph{
+    margin: 100px auto 0px auto;
+    text-align: center;
+}
